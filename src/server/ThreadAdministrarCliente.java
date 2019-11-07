@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import paquetes.Paquete;
 import paquetes.PaqueteManager;
@@ -57,10 +60,15 @@ public class ThreadAdministrarCliente extends Thread {
 				synchronized (in) {
 					mensajeRecibido = in.readUTF();
 				}
+				
+				JsonParser parser = new JsonParser();
+				JsonObject gsonArr = parser.parse(mensajeRecibido).getAsJsonObject();
+				Paquete paquete = new Paquete(gsonArr, socketCliente);
+				
 
-				Gson gson = new Gson();
+				/*Gson gson = new Gson();
 
-				Paquete inputPaquete = gson.fromJson(mensajeRecibido, Paquete.class);
+				Paquete inputPaquete = gson.fromJson(mensajeRecibido, Paquete.class);*/
 
 			} catch (IOException e) {
 				System.out.println("Error con el cliente");
