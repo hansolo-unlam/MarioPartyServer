@@ -19,7 +19,7 @@ public class Server {
 	 * Una vez creado el servido se crea un thread con el proposito de aceptar
 	 * nuevos clientes
 	 */
-	private static final String PATH_PROPERTIES = "/archivos/red.properties";
+	private static final String PATH_PROPERTIES = "red.properties";
 
 	private HashMap<String, Socket> clientes;
 	private ServerSocket serverSocket;
