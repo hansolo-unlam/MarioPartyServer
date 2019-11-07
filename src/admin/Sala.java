@@ -30,6 +30,10 @@ public class Sala {
 
 	}
 
+	public List<Socket> getUsuarios() {
+		return usuarios;
+	}
+
 	public void salir(Socket usuario) {
 		usuarios.remove(usuario);
 		// redibujo la ventana del usuario
