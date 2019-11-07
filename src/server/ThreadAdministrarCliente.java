@@ -1,13 +1,17 @@
 package server;
 
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.google.gson.Gson;
 
 import paquetes.Paquete;
+import paquetes.PaqueteManager;
 
 public class ThreadAdministrarCliente extends Thread {
 
@@ -17,13 +21,15 @@ public class ThreadAdministrarCliente extends Thread {
 	 * para luego brindarle una respuesta al mismo
 	 */
 	private Socket socketCliente;
-	private HashMap<String, Socket> clientes;
+	private HashMap<Integer, Socket> clientes;
 	// Buffer del cual va a leer el cliente
 	private DataInputStream in;
+	private PaqueteManager pkManager;
 
-	public ThreadAdministrarCliente(Socket socketCliente, HashMap<String, Socket> clientes) {
+	public ThreadAdministrarCliente(Socket socketCliente, HashMap<Integer, Socket> clientes) {
 		this.socketCliente = socketCliente;
 		this.clientes = clientes;
+		this.pkManager = new PaqueteManager();
 		try {
 			this.in = new DataInputStream(this.socketCliente.getInputStream());
 		} catch (IOException e) {
@@ -35,7 +41,7 @@ public class ThreadAdministrarCliente extends Thread {
 	public synchronized void run() {
 		/*
 		 * Aca tendria que procesar el paquete que le llega al jugador a traves de su
-		 * input y debe transmitir el resultado
+		 * input
 		 */
 
 		/**
@@ -63,8 +69,28 @@ public class ThreadAdministrarCliente extends Thread {
 
 		// Una vez leido el paquete viene la magia de Gson y deberia comprobar que tipo
 		// de paquetes es para poder procesar ese paquete
+	}
 
-		// Luego de resolver el paquete se deberia redistribuir dicho paquete
+	public synchronized void distribuirPaquete() {
+		ArrayList<Socket> clientes = new ArrayList<Socket>(this.clientes.values());
+
+		for (Socket clienteDestino : clientes) {
+
+			try {
+				DataOutputStream out = new DataOutputStream(clienteDestino.getOutputStream());
+
+				// out debe estar sincronizado
+				Gson gson = new Gson();
+
+				String mensaje = gson.toJson(pkManager);
+
+				out.writeUTF(mensaje);
+				out.flush();
+			} catch (IOException e) {
+
+				System.out.println("No se pudo establecer la conexion con el cliente");
+			}
+		}
 	}
 
 }

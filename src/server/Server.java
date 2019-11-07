@@ -16,12 +16,12 @@ public class Server {
 	 * configuracion del servidor se levanta de un archivo properties
 	 * "red.properties"
 	 * 
-	 * Una vez creado el servido se crea un thread con el proposito de aceptar
+	 * Una vez creado el servidor se crea un thread con el proposito de aceptar
 	 * nuevos clientes
 	 */
 	private static final String PATH_PROPERTIES = "/archivos/red.properties";
 
-	private HashMap<String, Socket> clientes;
+	private HashMap<Integer, Socket> clientes;
 	private ServerSocket serverSocket;
 	private int puerto;
 
@@ -31,7 +31,7 @@ public class Server {
 		try {
 
 			// Para almacenar los clientes que se vayan conectando al servidor.
-			clientes = new HashMap<String, Socket>();
+			clientes = new HashMap<Integer, Socket>();
 			serverSocket = new ServerSocket(puerto);
 
 			ThreadAceptarClientes aceptarClientes = new ThreadAceptarClientes(serverSocket, clientes);

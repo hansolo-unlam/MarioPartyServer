@@ -14,9 +14,9 @@ public class ThreadAceptarClientes extends Thread {
 	private final int CANTIDAD_CLIENTES = 50;
 
 	private ServerSocket serverSocket;
-	private HashMap<String, Socket> clientes;
+	private HashMap<Integer, Socket> clientes;
 
-	public ThreadAceptarClientes(ServerSocket serverSocket, HashMap<String, Socket> clientes) {
+	public ThreadAceptarClientes(ServerSocket serverSocket, HashMap<Integer, Socket> clientes) {
 		this.serverSocket = serverSocket;
 		this.clientes = clientes;
 	}
@@ -29,6 +29,7 @@ public class ThreadAceptarClientes extends Thread {
 
 			try {
 				socketCliente = serverSocket.accept();
+				clientes.put(i, socketCliente);
 			} catch (IOException e) {
 				System.out.println("No se pudo aceptar el cliente");
 			}
