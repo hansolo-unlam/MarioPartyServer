@@ -48,7 +48,7 @@ public class Paquete {
 				
 			case "INGRESAR_SALA":
 					String salaSolicitada = data.get("salaSolicitada").getAsString();
-					//Sala.agregarJugador(salaSolicitada, socket);
+					//Lobby.agregarASala(salaSolicitada, socket);
 				break;
 				
 			case "INICIAR_PARTIDA":
@@ -57,12 +57,12 @@ public class Paquete {
 			
 			case "NUEVA_SALA":
 					String nombreSala = data.get("nombreSala").getAsString();
-					//Sala.crearSala(nombreSala, socket);
+					//Lobby.crearSala(nombreSala, socketCliente);
 				break;
 				
 			case "SALIR_SALA":
 					String salaSolicitada1 = data.get("nombreSala").getAsString();
-					//Sala.sacarJugador(salaSolicitada, socket)
+					//Lobby.sacarJugadorDeSala(salaSolicitada, socket)
 				break;
 				
 			default:
