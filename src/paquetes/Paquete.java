@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import admin.Lobby;
+
 public class Paquete {
 
 	protected String tipo;
@@ -48,7 +50,8 @@ public class Paquete {
 				
 			case "INGRESAR_SALA":
 					String salaSolicitada = data.get("salaSolicitada").getAsString();
-					//Lobby.agregarASala(salaSolicitada, socket);
+					System.out.println("Paquete recibido");
+					Lobby.agregarASala(salaSolicitada, socketCliente);
 				break;
 				
 			case "INICIAR_PARTIDA":
@@ -57,11 +60,13 @@ public class Paquete {
 			
 			case "NUEVA_SALA":
 					String nombreSala = data.get("nombreSala").getAsString();
+					System.out.println("Paquete recibido");
 					//Lobby.crearSala(nombreSala, socketCliente);
 				break;
 				
 			case "SALIR_SALA":
 					String salaSolicitada1 = data.get("nombreSala").getAsString();
+					System.out.println("Paquete recibido");
 					//Lobby.sacarJugadorDeSala(salaSolicitada, socket)
 				break;
 				

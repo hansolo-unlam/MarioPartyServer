@@ -23,13 +23,14 @@ public class ThreadAceptarClientes extends Thread {
 
 	@Override
 	public void run() {
-
-		for (int i = 0; i < CANTIDAD_CLIENTES; i++) {
+		int clientesConectados = 0;
+		while(!serverSocket.isClosed() && clientesConectados <=CANTIDAD_CLIENTES) {
 			Socket socketCliente = null;
 
 			try {
 				socketCliente = serverSocket.accept();
-				clientes.put(i, socketCliente);
+				clientes.put(clientesConectados, socketCliente);
+				clientesConectados++;
 			} catch (IOException e) {
 				System.out.println("No se pudo aceptar el cliente");
 			}

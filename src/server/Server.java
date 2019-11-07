@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
+import admin.Lobby;
+
 public class Server {
 	/**
 	 * Esta clase se encarga de la creacion del servidor La misma posee un Map el
@@ -21,7 +23,7 @@ public class Server {
 	 */
 	private static final String PATH_PROPERTIES = "red.properties";
 
-	private HashMap<Integer, Socket> clientes;
+	private static HashMap<Integer, Socket> clientes;
 	private ServerSocket serverSocket;
 	private int puerto;
 
@@ -35,6 +37,7 @@ public class Server {
 			serverSocket = new ServerSocket(puerto);
 
 			ThreadAceptarClientes aceptarClientes = new ThreadAceptarClientes(serverSocket, clientes);
+			
 			aceptarClientes.start();
 
 		} catch (IOException e) {
@@ -72,6 +75,11 @@ public class Server {
 			System.out.println("No se pudo leer el archivo de properties");
 		}
 
+	}
+
+	public static void main(String[] args) {
+		new Server();
+		
 	}
 
 }

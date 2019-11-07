@@ -1,5 +1,7 @@
 package admin;
 
+import java.net.Socket;
+import java.util.HashMap;
 import java.util.List;
 
 import admin.Usuario;
@@ -7,21 +9,18 @@ import admin.Usuario;
 public class Sala {
 
 	private final int maxJugadores = 4;
-	private List<Usuario> usuarios;
+	private List<Socket> usuarios;
 	private String nombre;
+	private Socket socketCliente;
 //	private Juego juego;
 
-	public Sala(Usuario usuario, String nombre) {
-		usuarios.add(usuario);
+	public Sala(Socket cliente, String nombre) {
+		usuarios.add(cliente);
 		this.nombre = nombre;
 		// redibujo la ventana del usuario
 	}
 
-	public List<Usuario> getUsuarios() {
-		return usuarios;
-	}
-
-	public void unirseASala(Usuario usuario) {
+	public void unirseASala(Socket usuario) {
 		if (usuarios.size() < maxJugadores)
 			usuarios.add(usuario);
 		// redibujo la ventana del usuario
@@ -31,7 +30,7 @@ public class Sala {
 
 	}
 
-	public void salir(Usuario usuario) {
+	public void salir(Socket usuario) {
 		usuarios.remove(usuario);
 		// redibujo la ventana del usuario
 		// if (juego.isEjecutando())
@@ -40,12 +39,12 @@ public class Sala {
 	}
 
 	public void iniciarPartida() {
-//		juego = new Juego("Mario party", 1000, 768/* usuarios */);
+//		juego = new Juego("Mario party", 1000, 768, usuarios);
 //		juego.start();
 	}
 
 	public boolean isLlena() {
-		if(usuarios.size()==4)
+		if (usuarios.size() == 4)
 			return true;
 		return false;
 	}
