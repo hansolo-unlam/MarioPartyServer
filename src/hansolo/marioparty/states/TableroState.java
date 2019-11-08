@@ -1,9 +1,12 @@
 package hansolo.marioparty.states;
 
+import com.google.gson.JsonObject;
+
 import hansolo.marioparty.Juego;
 //import hansolo.marioparty.admin.Usuario;
 import hansolo.marioparty.entidades.Jugador;
 import hansolo.marioparty.tablero.Tablero;
+import server.ThreadAdministrarCliente;
 
 public class TableroState extends State {
 	private Tablero tablero;
@@ -18,6 +21,7 @@ public class TableroState extends State {
 
 		tablero = new Tablero("./recursos/map0.txt", juego);
 		this.tieneTurno = juego.getJugadores().get(0);
+		//informarTurno(0);
 		this.subEstado = EnumEstadoJuego.TIEMPO_DE_ACCIONES;
 		this.userJugadores = tieneTurno.getUser();
 
@@ -51,13 +55,16 @@ public class TableroState extends State {
 		int index = juego.getJugadores().indexOf(tieneTurno);
 		index++;
 
-		if (index < juego.getJugadores().size())
+		if (index < juego.getJugadores().size()) {
 			tieneTurno = juego.getJugadores().get(index);
+			informarTurno(index);
+		}
 		else {
 			index = 0;
 			tieneTurno = juego.getJugadores().get(0);
 			ronda++;
-			juego.iniciarMinijuego();
+			informarTurno(index);
+			//juego.iniciarMinijuego();
 		}
 
 		if (tieneTurno.isPierdeTurno()) {
@@ -65,6 +72,16 @@ public class TableroState extends State {
 		}
 
 		subEstado = EnumEstadoJuego.TIEMPO_DE_ACCIONES;
+	}
+
+	private void informarTurno(int index) {
+		JsonObject jo = new JsonObject();
+		JsonObject jo1 = new JsonObject();
+		jo.addProperty("nombre", "TURNO");
+		jo1.addProperty("jugador", index);
+		jo1.addProperty("juego", juego.getId());
+		jo.add("data", jo1);
+		ThreadAdministrarCliente.distribuirPaquete(jo.toString());
 	}
 
 	public void handleTerminoTurno() {
