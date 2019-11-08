@@ -1,8 +1,12 @@
 package admin;
 
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import org.omg.CORBA_2_3.portable.OutputStream;
 
 import com.google.gson.JsonObject;
 
@@ -56,6 +60,27 @@ public class Lobby extends Thread {
 	public static void agregarASala(String nombre, Socket user) {
 		if (!salas.get(nombre).isLlena())
 			salas.get(nombre).unirseASala(user);
+	}
+
+	//cuando se conecta un nuevo cliente le envio las salas existentes
+	public static void nuevoUsuario(Socket socketCliente) {
+		JsonObject jo = new JsonObject();
+		JsonObject jo1 = new JsonObject();
+		jo.addProperty("nombre", "NUEVO_USUARIO");
+		int i = 0;
+		jo1.addProperty("cant", nombres.size());
+		for (String sala : nombres) {
+			jo1.addProperty("sala"+i, sala);
+		}
+		jo.add("data", jo1);
+		try {
+			DataOutputStream out = new DataOutputStream(socketCliente.getOutputStream());
+			out.writeUTF(jo.toString());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 }

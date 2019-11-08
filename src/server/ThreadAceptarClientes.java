@@ -5,6 +5,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
 
+import admin.Lobby;
+
 public class ThreadAceptarClientes extends Thread {
 	/**
 	 * Clase que se encarga de aceptar nuevos clientes en el servidor.
@@ -31,6 +33,7 @@ public class ThreadAceptarClientes extends Thread {
 				socketCliente = serverSocket.accept();
 				clientes.put(clientesConectados, socketCliente);
 				clientesConectados++;
+				Lobby.nuevoUsuario(socketCliente);
 			} catch (IOException e) {
 				System.out.println("No se pudo aceptar el cliente");
 			}
