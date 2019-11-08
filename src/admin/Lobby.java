@@ -14,9 +14,11 @@ import server.ThreadAdministrarCliente;
 
 public class Lobby extends Thread {
 	private static HashMap<String, Sala> salas = new HashMap<String, Sala>();
-	static ArrayList<String> nombres = new ArrayList<String>();
+	private static ArrayList<String> nombres = new ArrayList<String>();
 //	private Socket socketCliente;
 	private HashMap<Integer, Socket> clientes;
+	private static ArrayList<String> userNames = new ArrayList<String>();
+	
 
 	public Lobby(HashMap<Integer, Socket> clientes) {
 		this.clientes = clientes;
@@ -63,14 +65,15 @@ public class Lobby extends Thread {
 	}
 
 	//cuando se conecta un nuevo cliente le envio las salas existentes
-	public static void nuevoUsuario(Socket socketCliente) {
+	public static void salasPrevias(Socket socketCliente) {
 		JsonObject jo = new JsonObject();
 		JsonObject jo1 = new JsonObject();
-		jo.addProperty("nombre", "NUEVO_USUARIO");
+		jo.addProperty("nombre", "SALAS_PREVIAS");
 		int i = 0;
 		jo1.addProperty("cant", nombres.size());
 		for (String sala : nombres) {
 			jo1.addProperty("sala"+i, sala);
+			i++;
 		}
 		jo.add("data", jo1);
 		try {
@@ -81,6 +84,21 @@ public class Lobby extends Thread {
 			e.printStackTrace();
 		}
 		
+	}
+
+	public static void nuevoUser(String usuario) {
+		userNames.add(usuario);
+		JsonObject jo = new JsonObject();
+		JsonObject jo1 = new JsonObject();
+		jo.addProperty("nombre", "USERS_CONECTADOS");
+		int i = 0;
+		jo1.addProperty("cant", userNames.size());
+		for (String user : userNames) {
+			jo1.addProperty("user"+i, user);
+			i++;
+		}
+		jo.add("data", jo1);
+		ThreadAdministrarCliente.distribuirPaquete(jo.toString());
 	}
 
 }

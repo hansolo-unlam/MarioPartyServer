@@ -8,7 +8,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import admin.Lobby;
-import admin.Sala;
 
 public class Paquete {
 
@@ -52,7 +51,8 @@ public class Paquete {
 			
 		case "LOGIN":
 			String usuario = data.get("usuario").getAsString();
-			String contraseña = data.get("contraseña").getAsString();
+			Lobby.nuevoUser(usuario);
+			//String contraseña = data.get("contraseña").getAsString();
 			// verificarDatosUsuario(usuario, contraseña, socket);
 			break;
 			
@@ -65,7 +65,7 @@ public class Paquete {
 
 		case "INICIAR_PARTIDA":
 			System.out.println("Paquete recibido");
-			Sala.iniciarPartida();
+			// Sala.iniciarPartida(socket);
 			break;
 
 		case "NUEVA_SALA":

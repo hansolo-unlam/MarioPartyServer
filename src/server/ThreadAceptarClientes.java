@@ -33,7 +33,7 @@ public class ThreadAceptarClientes extends Thread {
 				socketCliente = serverSocket.accept();
 				clientes.put(clientesConectados, socketCliente);
 				clientesConectados++;
-				Lobby.nuevoUsuario(socketCliente);
+				Lobby.salasPrevias(socketCliente);
 			} catch (IOException e) {
 				System.out.println("No se pudo aceptar el cliente");
 			}
