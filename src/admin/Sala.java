@@ -4,10 +4,12 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+import server.ThreadAdministrarCliente;
+
 public class Sala {
 
 	private final int maxJugadores = 4;
-	private List<Socket> usuarios = new ArrayList<Socket>();
+	private static ArrayList<Socket> usuarios = new ArrayList<Socket>();
 	private String nombre;
 	private Socket socketCliente;
 //	private Juego juego;
@@ -36,7 +38,8 @@ public class Sala {
 		usuarios.remove(usuario);
 	}
 
-	public void iniciarPartida() {
+	public static void iniciarPartida(Socket socket) {
+		ThreadAdministrarCliente partidaThread = new ThreadAdministrarCliente(socket, usuarios);
 //		juego = new Juego("Mario party", 1000, 768, usuarios);
 //		juego.start();
 	}

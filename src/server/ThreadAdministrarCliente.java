@@ -41,6 +41,18 @@ public class ThreadAdministrarCliente extends Thread {
 			System.out.println("No se pudo establecer la conexion con el cliente");
 		}
 	}
+	
+	public ThreadAdministrarCliente(Socket socketCliente, ArrayList<Socket> clientes) {
+		this.socketCliente = socketCliente;
+		this.clientesArray = clientes;
+		this.pkManager = new PaqueteManager();
+		try {
+			this.in = new DataInputStream(this.socketCliente.getInputStream());
+		} catch (IOException e) {
+			System.out.println("No se pudo establecer la conexion con el cliente");
+		}
+	}
+
 
 	@Override
 	public synchronized void run() {

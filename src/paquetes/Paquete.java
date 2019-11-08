@@ -8,6 +8,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import admin.Lobby;
+import admin.Sala;
 
 public class Paquete {
 
@@ -64,7 +65,7 @@ public class Paquete {
 
 		case "INICIAR_PARTIDA":
 			System.out.println("Paquete recibido");
-			// Sala.iniciarPartida(socket);
+			Sala.iniciarPartida(socketCliente);
 			break;
 
 		case "NUEVA_SALA":

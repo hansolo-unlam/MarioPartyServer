@@ -26,7 +26,7 @@ public class ThreadAceptarClientes extends Thread {
 	@Override
 	public void run() {
 		int clientesConectados = 0;
-		while(!serverSocket.isClosed() && clientesConectados <=CANTIDAD_CLIENTES) {
+		while (!serverSocket.isClosed() && clientesConectados <= CANTIDAD_CLIENTES) {
 			Socket socketCliente = null;
 
 			try {
