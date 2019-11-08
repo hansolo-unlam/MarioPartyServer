@@ -48,6 +48,7 @@ public class Paquete {
 				e.printStackTrace();
 			}
 			break;
+			
 		case "LOGIN":
 			String usuario = data.get("usuario").getAsString();
 			String contraseña = data.get("contraseña").getAsString();
@@ -68,13 +69,13 @@ public class Paquete {
 		case "NUEVA_SALA":
 			String nombreSala = data.get("nombreSala").getAsString();
 			System.out.println("Paquete recibido");
-			// Lobby.crearSala(nombreSala, socketCliente);
+			Lobby.crearSala(nombreSala, socketCliente);
 			break;
 
 		case "SALIR_SALA":
 			String salaSolicitada1 = data.get("nombreSala").getAsString();
 			System.out.println("Paquete recibido");
-			// Lobby.sacarJugadorDeSala(salaSolicitada, socket)
+			Lobby.sacarJugadorDeSala(salaSolicitada1, socketCliente);
 			break;
 
 		default:

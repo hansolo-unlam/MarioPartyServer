@@ -37,7 +37,6 @@ public class Server {
 			serverSocket = new ServerSocket(puerto);
 
 			ThreadAceptarClientes aceptarClientes = new ThreadAceptarClientes(serverSocket, clientes);
-			
 			aceptarClientes.start();
 
 		} catch (IOException e) {

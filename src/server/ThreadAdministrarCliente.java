@@ -28,10 +28,12 @@ public class ThreadAdministrarCliente extends Thread {
 	// Buffer del cual va a leer el cliente
 	private DataInputStream in;
 	private PaqueteManager pkManager;
+	private static ArrayList<Socket> clientesArray;
 
 	public ThreadAdministrarCliente(Socket socketCliente, HashMap<Integer, Socket> clientes) {
 		this.socketCliente = socketCliente;
 		this.clientes = clientes;
+		this.clientesArray = new ArrayList<Socket>(this.clientes.values());
 		this.pkManager = new PaqueteManager();
 		try {
 			this.in = new DataInputStream(this.socketCliente.getInputStream());
@@ -79,18 +81,16 @@ public class ThreadAdministrarCliente extends Thread {
 		// de paquetes es para poder procesar ese paquete
 	}
 
-	public synchronized void distribuirPaquete() {
-		ArrayList<Socket> clientes = new ArrayList<Socket>(this.clientes.values());
+	public synchronized static void distribuirPaquete(String mensaje) {
 
-		for (Socket clienteDestino : clientes) {
-
+		for (Socket clienteDestino : clientesArray) {
 			try {
 				DataOutputStream out = new DataOutputStream(clienteDestino.getOutputStream());
 
 				// out debe estar sincronizado
-				Gson gson = new Gson();
-
-				String mensaje = gson.toJson(pkManager);
+//				Gson gson = new Gson();
+//
+//				String mensaje = gson.toJson(pkManager);
 
 				out.writeUTF(mensaje);
 				out.flush();
