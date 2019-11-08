@@ -20,13 +20,9 @@ public class Lobby extends Thread {
 	private static ArrayList<String> userNames = new ArrayList<String>();
 	
 
-	public Lobby(HashMap<Integer, Socket> clientes) {
-		this.clientes = clientes;
-	}
-
-	public static void crearSala(String nombre, Socket cliente) {
+	public static void crearSala(String nombre, Socket cliente, String userName) {
 		if (!salas.containsKey(nombre)) {
-			salas.put(nombre, new Sala(cliente, nombre));
+			
 			nombres.add(nombre);
 			//genero el mensaje y lo envio a los clientes
 			JsonObject jo = new JsonObject();
@@ -35,12 +31,13 @@ public class Lobby extends Thread {
 			jo1.addProperty("salaCreada", nombre);
 			jo.add("data", jo1);
 			ThreadAdministrarCliente.distribuirPaquete(jo.toString());
+			salas.put(nombre, new Sala(cliente, nombre, userName));
 		}
 		
 	}
 
-	public static void sacarJugadorDeSala(String nombre, Socket user) {
-		salas.get(nombre).salir(user);
+	public static void sacarJugadorDeSala(String nombre, Socket user, String userName) {
+		salas.get(nombre).salir(user, userName);
 		if (salas.get(nombre).getUsuarios().size() == 0) {
 			eliminarSala(nombre);
 		}
@@ -59,9 +56,9 @@ public class Lobby extends Thread {
 
 	}
 
-	public static void agregarASala(String nombre, Socket user) {
+	public static void agregarASala(String nombre, Socket user, String userName) {
 		if (!salas.get(nombre).isLlena())
-			salas.get(nombre).unirseASala(user);
+			salas.get(nombre).unirseASala(user, userName);
 	}
 
 	//cuando se conecta un nuevo cliente le envio las salas existentes

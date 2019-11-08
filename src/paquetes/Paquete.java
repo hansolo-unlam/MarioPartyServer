@@ -46,7 +46,7 @@ public class Paquete {
 				Lobby.sacarJugador(usuarioOut);
 				System.out.println("Un cliente salio");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+			
 				e.printStackTrace();
 			}
 			break;
@@ -61,8 +61,9 @@ public class Paquete {
 			//Cree metodos estaticos en el Lobby porque es quien tiene todas las salas
 		case "INGRESAR_SALA":
 			String salaSolicitada = data.get("salaSolicitada").getAsString();
+			String userName = data.get("user").getAsString();
 			System.out.println("Paquete recibido");
-			Lobby.agregarASala(salaSolicitada, socketCliente);
+			Lobby.agregarASala(salaSolicitada, socketCliente, userName);
 			break;
 
 		case "INICIAR_PARTIDA":
@@ -72,14 +73,16 @@ public class Paquete {
 
 		case "NUEVA_SALA":
 			String nombreSala = data.get("nombreSala").getAsString();
+			userName = data.get("user").getAsString();
 			System.out.println("Paquete recibido");
-			Lobby.crearSala(nombreSala, socketCliente);
+			Lobby.crearSala(nombreSala, socketCliente, userName);
 			break;
 
 		case "SALIR_SALA":
 			String salaSolicitada1 = data.get("nombreSala").getAsString();
+			userName = data.get("user").getAsString();
 			System.out.println("Paquete recibido");
-			Lobby.sacarJugadorDeSala(salaSolicitada1, socketCliente);
+			Lobby.sacarJugadorDeSala(salaSolicitada1, socketCliente, userName);
 			break;
 
 		default:
