@@ -6,12 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import com.google.gson.JsonObject;
+
 import hansolo.marioparty.Juego;
 //import hansolo.marioparty.admin.Usuario;
 import hansolo.marioparty.entidades.Jugador;
 import hansolo.marioparty.tablero.casilleros.EstrellaCasillero;
 import hansolo.marioparty.utils.LeerArchivo;
 import hansolo.marioparty.utils.LoaderMapa;
+import server.ThreadAdministrarCliente;
 
 public class Tablero {
 	private List<Casillero> casilleros = new ArrayList<Casillero>();
@@ -86,7 +89,7 @@ public class Tablero {
 				indice = random.nextInt(this.idsCasillerosEstrella.size());
 			}
 		}
-
+		enviarUbicacionEstrella(indice);
 		// Actualizo el .tieneEstrella de todos los CasillerosEstrella
 		EstrellaCasillero aux;
 		for (int i = 0; i < this.idsCasillerosEstrella.size(); i++) {
@@ -99,6 +102,16 @@ public class Tablero {
 
 			aux.setTieneEstrella(false);
 		}
+	}
+
+	private void enviarUbicacionEstrella(int indice) {
+		JsonObject jo = new JsonObject();
+		JsonObject jo1 = new JsonObject();
+		jo.addProperty("nombre", "ESTRELLA");
+		jo1.addProperty("posicion", indice);
+		jo1.addProperty("juego", juego.getId());
+		jo.add("data", jo1);
+		ThreadAdministrarCliente.distribuirPaquete(jo.toString());
 	}
 
 	public Casillero getStart() {

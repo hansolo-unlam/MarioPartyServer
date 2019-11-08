@@ -24,9 +24,15 @@ public class Juego implements Runnable {
 	// cuando tengamos mas minijuegos se cargarian en el vector
 	// private Minijuego[] minijuegos = new Minijuego[1];
 
+	private String id;
+	public String getId() {
+		return id;
+	}
+
 	private BufferedImage background;
 
-	public Juego(ArrayList<String> users) {
+	public Juego(ArrayList<String> users, String id) {
+		this.id = id;
 		for (int i = 0; i<users.size();i++) {
 			jugadores.add(new Jugador(i, users.get(i), this));
 		}

@@ -80,7 +80,7 @@ public class Sala {
 		jo1.add("jugadores",jo2);
 		jo.add("data", jo1);
 		ThreadAdministrarCliente.distribuirPaquete(jo.toString());
-		Juego juego = new Juego(userNames);
+		Juego juego = new Juego(userNames, nombre);
 		juego.start();
 	}
 
