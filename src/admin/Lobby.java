@@ -101,4 +101,19 @@ public class Lobby extends Thread {
 		ThreadAdministrarCliente.distribuirPaquete(jo.toString());
 	}
 
+	public static void sacarJugador(String usuarioOut) {
+		userNames.remove(usuarioOut);
+		JsonObject jo = new JsonObject();
+		JsonObject jo1 = new JsonObject();
+		jo.addProperty("nombre", "USERS_CONECTADOS");
+		int i = 0;
+		jo1.addProperty("cant", userNames.size());
+		for (String user : userNames) {
+			jo1.addProperty("user"+i, user);
+			i++;
+		}
+		jo.add("data", jo1);
+		ThreadAdministrarCliente.distribuirPaquete(jo.toString());
+	}
+
 }

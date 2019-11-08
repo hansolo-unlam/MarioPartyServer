@@ -40,8 +40,10 @@ public class Paquete {
 
 		switch (cabecera) {
 		case "SALIR":
+			String usuarioOut = data.get("usuario").getAsString();
 			try {
 				socketCliente.close();
+				Lobby.sacarJugador(usuarioOut);
 				System.out.println("Un cliente salio");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -50,8 +52,8 @@ public class Paquete {
 			break;
 			
 		case "LOGIN":
-			String usuario = data.get("usuario").getAsString();
-			Lobby.nuevoUser(usuario);
+			String usuarioIn = data.get("usuario").getAsString();
+			Lobby.nuevoUser(usuarioIn);
 			//String contraseña = data.get("contraseña").getAsString();
 			// verificarDatosUsuario(usuario, contraseña, socket);
 			break;
