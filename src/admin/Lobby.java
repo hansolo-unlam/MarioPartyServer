@@ -113,4 +113,8 @@ public class Lobby extends Thread {
 		ThreadAdministrarCliente.distribuirPaquete(jo.toString());
 	}
 
+	public static void iniciarPartida(String sala) {
+		salas.get(sala).iniciarPartida();
+	}
+
 }

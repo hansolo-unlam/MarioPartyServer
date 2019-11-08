@@ -68,8 +68,9 @@ public class Paquete {
 			break;
 
 		case "INICIAR_PARTIDA":
-			System.out.println("Paquete recibido");
-			Sala.iniciarPartida();
+			System.out.println("Paquete inicio recibido");
+			String sala = data.get("sala").getAsString();
+			Lobby.iniciarPartida(sala);
 			break;
 
 		case "NUEVA_SALA":
