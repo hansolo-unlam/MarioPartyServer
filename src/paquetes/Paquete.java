@@ -103,6 +103,19 @@ public class Paquete {
 			System.out.println("Paquete recibido");
 			
 			break;
+			
+		case "AVANZAR":
+			//de cualquier otra manera que lo pense me rompia
+			juego = data.get("juego").getAsString();
+			jo = new JsonObject();
+			jo1 = new JsonObject();
+			jo.addProperty("nombre", "AVANZAR");
+			jo1.addProperty("juego", juego);
+			jo.add("data", jo1);
+			ThreadAdministrarCliente.distribuirPaquete(jo.toString());
+			System.out.println("Paquete recibido");
+			
+			break;
 		default:
 
 		}
