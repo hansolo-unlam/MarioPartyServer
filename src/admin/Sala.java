@@ -16,6 +16,7 @@ public class Sala {
 	private ArrayList<String> userNames = new ArrayList<String>();
 	private String nombre;
 	private Socket socketCliente;
+	private Juego juego;
 	ThreadAdministrarCliente threadPartida;
 //	private Juego juego;
 
@@ -80,7 +81,7 @@ public class Sala {
 		jo1.add("jugadores",jo2);
 		jo.add("data", jo1);
 		ThreadAdministrarCliente.distribuirPaquete(jo.toString());
-		Juego juego = new Juego(userNames, nombre);
+		juego = new Juego(userNames, nombre);
 		juego.start();
 	}
 
@@ -88,6 +89,10 @@ public class Sala {
 		if (usuarios.size() == 4)
 			return true;
 		return false;
+	}
+
+	public Juego getJuego() {
+		return juego;
 	}
 
 	public String getNombre() {

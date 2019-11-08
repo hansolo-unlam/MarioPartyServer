@@ -116,6 +116,14 @@ public class Paquete {
 			System.out.println("Paquete recibido");
 			
 			break;
+			
+		case "PASAR_TURNO":
+			//de cualquier otra manera que lo pense me rompia
+			juego = data.get("juego").getAsString();
+			Lobby.getSalas().get(juego).getJuego().getTableroState().pasarTurno();
+			System.out.println("Paquete recibido");
+			
+			break;
 		default:
 
 		}

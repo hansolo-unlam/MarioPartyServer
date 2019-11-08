@@ -19,6 +19,10 @@ public class Juego implements Runnable {
 	// estados
 	// private MenuState menuState;
 	private TableroState tableroState;
+	public TableroState getTableroState() {
+		return tableroState;
+	}
+
 	private MinijuegoState minijuegoState;
 
 	// cuando tengamos mas minijuegos se cargarian en el vector

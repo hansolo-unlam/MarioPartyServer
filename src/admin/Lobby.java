@@ -36,6 +36,10 @@ public class Lobby extends Thread {
 		
 	}
 
+	public static HashMap<String, Sala> getSalas() {
+		return salas;
+	}
+
 	public static void sacarJugadorDeSala(String nombre, Socket user, String userName) {
 		salas.get(nombre).salir(user, userName);
 		if (salas.get(nombre).getUsuarios().size() == 0) {
