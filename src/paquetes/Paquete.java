@@ -65,7 +65,7 @@ public class Paquete {
 
 		case "INICIAR_PARTIDA":
 			System.out.println("Paquete recibido");
-			Sala.iniciarPartida(socketCliente);
+			Sala.iniciarPartida();
 			break;
 
 		case "NUEVA_SALA":

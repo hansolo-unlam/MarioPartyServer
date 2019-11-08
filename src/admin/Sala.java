@@ -38,8 +38,12 @@ public class Sala {
 		usuarios.remove(usuario);
 	}
 
-	public static void iniciarPartida(Socket socket) {
-		ThreadAdministrarCliente partidaThread = new ThreadAdministrarCliente(socket, usuarios);
+	public static void iniciarPartida() {
+		for (Socket socketU : usuarios) {
+			ThreadAdministrarCliente partidaThread = new ThreadAdministrarCliente(socketU, usuarios);
+			partidaThread.start();
+		}
+		
 //		juego = new Juego("Mario party", 1000, 768, usuarios);
 //		juego.start();
 	}
