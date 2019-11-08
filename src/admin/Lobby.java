@@ -22,13 +22,15 @@ public class Lobby extends Thread {
 		if (!salas.containsKey(nombre)) {
 			salas.put(nombre, new Sala(cliente, nombre));
 			nombres.add(nombre);
+			//genero el mensaje y lo envio a los clientes
+			JsonObject jo = new JsonObject();
+			JsonObject jo1 = new JsonObject();
+			jo.addProperty("nombre", "SALA_CREADA");
+			jo1.addProperty("salaCreada", nombre);
+			jo.add("data", jo1);
+			ThreadAdministrarCliente.distribuirPaquete(jo.toString());
 		}
-		JsonObject jo = new JsonObject();
-		JsonObject jo1 = new JsonObject();
-		jo.addProperty("nombre", "SALA_CREADA");
-		jo1.addProperty("salaCreada", nombre);
-		jo.add("data", jo1);
-		ThreadAdministrarCliente.distribuirPaquete(jo.toString());
+		
 	}
 
 	public static void sacarJugadorDeSala(String nombre, Socket user) {
@@ -41,15 +43,13 @@ public class Lobby extends Thread {
 	private static void eliminarSala(String nombre) {
 		salas.remove(nombre);
 		nombres.remove(nombre);
+		//genero el mensaje y lo envio a los clientes
 		JsonObject jo = new JsonObject();
 		JsonObject jo1 = new JsonObject();
 		jo.addProperty("nombre", "SALA_ELIMINADA");
 		jo1.addProperty("salaEliminada", nombre);
 		jo.add("data", jo1);
 		ThreadAdministrarCliente.distribuirPaquete(jo.toString());
-		
-		// enviar mensaje con una lista con los nombres de las salas a cada cliente
-		// para dibujar los botones correspondientes
 
 	}
 

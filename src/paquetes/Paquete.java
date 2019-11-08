@@ -54,7 +54,8 @@ public class Paquete {
 			String contraseña = data.get("contraseña").getAsString();
 			// verificarDatosUsuario(usuario, contraseña, socket);
 			break;
-
+			
+			//Cree metodos estaticos en el Lobby porque es quien tiene todas las salas
 		case "INGRESAR_SALA":
 			String salaSolicitada = data.get("salaSolicitada").getAsString();
 			System.out.println("Paquete recibido");
