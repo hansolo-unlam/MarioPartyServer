@@ -88,4 +88,15 @@ public class TableroState extends State {
 		subEstado = EnumEstadoJuego.FIN_TURNO;
 	}
 
+	public void dado() {
+		int resultado = (int)(Math.random() * 6) + 1;
+		JsonObject jo = new JsonObject();
+		JsonObject jo1 = new JsonObject();
+		jo.addProperty("nombre", "MOVIMIENTOS");
+		jo1.addProperty("cant", resultado);
+		jo1.addProperty("juego", juego.getId());
+		jo.add("data", jo1);
+		ThreadAdministrarCliente.distribuirPaquete(jo.toString());
+	}
+
 }

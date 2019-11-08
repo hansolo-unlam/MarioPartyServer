@@ -9,6 +9,8 @@ import com.google.gson.JsonObject;
 
 import admin.Lobby;
 import admin.Sala;
+import hansolo.marioparty.states.TableroState;
+import server.ThreadAdministrarCliente;
 
 public class Paquete {
 
@@ -87,6 +89,20 @@ public class Paquete {
 			Lobby.sacarJugadorDeSala(salaSolicitada1, socketCliente, userName);
 			break;
 
+		case "DADO":
+			//de cualquier otra manera que lo pense me rompia
+			String juego = data.get("juego").getAsString();
+			int resultado = (int)(Math.random() * 6) + 1;
+			JsonObject jo = new JsonObject();
+			JsonObject jo1 = new JsonObject();
+			jo.addProperty("nombre", "MOVIMIENTOS");
+			jo1.addProperty("cant", resultado);
+			jo1.addProperty("juego", juego);
+			jo.add("data", jo1);
+			ThreadAdministrarCliente.distribuirPaquete(jo.toString());
+			System.out.println("Paquete recibido");
+			
+			break;
 		default:
 
 		}

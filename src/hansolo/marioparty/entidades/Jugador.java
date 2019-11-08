@@ -74,11 +74,11 @@ public class Jugador {
 //		}
 	}
 
-	public void dibujar(Graphics g) {
-		g.drawImage(spriteTablero, x, y, null);
-		g.drawString(String.valueOf(cantMovimientos), x, y - 20);
-	}
-	
+//	public void dibujar(Graphics g) {
+//		g.drawImage(spriteTablero, x, y, null);
+//		g.drawString(String.valueOf(cantMovimientos), x, y - 20);
+//	}
+//	
 //cliente	
 //	public void cargarSprites() {
 //		switch (numero) {

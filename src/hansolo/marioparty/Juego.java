@@ -34,7 +34,7 @@ public class Juego implements Runnable {
 	public Juego(ArrayList<String> users, String id) {
 		this.id = id;
 		for (int i = 0; i<users.size();i++) {
-			jugadores.add(new Jugador(i, users.get(i), this));
+			jugadores.add(new Jugador(i+1, users.get(i), this));
 		}
 	}
 
