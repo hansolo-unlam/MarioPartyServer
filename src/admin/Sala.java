@@ -13,7 +13,7 @@ public class Sala {
 	private final int maxJugadores = 4;
 	private ArrayList<Socket> usuarios = new ArrayList<Socket>();
 	private static ArrayList<String> userNames = new ArrayList<String>();
-	private String nombre;
+	private static String nombre;
 	private Socket socketCliente;
 	ThreadAdministrarCliente threadPartida;
 //	private Juego juego;
@@ -64,8 +64,12 @@ public class Sala {
 		usersEnSala();
 	}
 
-	public void iniciarPartida() {
-
+	public static void iniciarPartida() {
+		JsonObject jo = new JsonObject();
+		JsonObject jo1 = new JsonObject();
+		jo.addProperty("nombre", "INICIO_PARTIDA");
+		jo1.addProperty("sala", nombre);
+		jo.add("data", jo1);
 //		juego = new Juego("Mario party", 1000, 768, usuarios);
 //		juego.start();
 	}
