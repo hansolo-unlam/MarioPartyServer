@@ -25,9 +25,9 @@ public class MonedaCasillero extends Casillero {
 
 	@Override
 	public void efecto(Jugador jugador) {
-		System.out.println(jugador.getUser() + " calló en un casillero de monedas");
-
-		jugador.setMonedas( Math.max(0, jugador.getMonedas() + this.cantMonedas));
+//		System.out.println(jugador.getUser() + " calló en un casillero de monedas");
+//
+//		jugador.setMonedas( Math.max(0, jugador.getMonedas() + this.cantMonedas));
 	}
 
 	public int getMoneda() {

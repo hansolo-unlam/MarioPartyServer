@@ -1,77 +1,72 @@
 package hansolo.marioparty.entidades;
 
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.List;
 
 import hansolo.marioparty.Juego;
 import hansolo.marioparty.tablero.Casillero;
-import admin.Usuario;
-//import hansolo.marioparty.graficos.Texturas;
-//import hansolo.marioparty.items.DadoSimple;
-//import hansolo.marioparty.items.Item;
-//import hansolo.marioparty.tablero.Casillero;
 
 public class Jugador {
 	private int x;
 	private int y;
-	
-	private BufferedImage spriteTablero;
+
+	//private BufferedImage spriteTablero;
 
 	private int numero;
 	private String user;
 	private int monedas, estrellas;
 	private Casillero posicion;
-	//private List<Item> items;
-	
+	// private List<Item> items;
+
 	private int cantMovimientos;
 	private boolean avanzando = false;
 	private boolean pierdeTurno = false;
-	
+
 	private Juego juego;
 
 	public Jugador(int numero, String user, Juego juego) {
 		this.numero = numero;
-		this.posicion = null;
-		this.x = 0;
-		this.y = 0;
-		
+		this.posicion = juego.getTablero().getStart();
+		this.x = this.posicion.getX();
+		this.y = this.posicion.getY();
+
 		this.monedas = 30;
 		this.estrellas = 0;
-	//	this.items = new ArrayList<Item>();
+		// this.items = new ArrayList<Item>();
 
 		this.juego = juego;
-		
+
 		this.user = user;
 		this.cantMovimientos = 0;
-		
-		//cargarSprites();
+
+		// cargarSprites();
 	}
-	//cliente
+
+	// cliente
 	public void calcular() {
 //		// si el jugador esta parado en el [x,y] de su casillero y le quedan movimientos,
-//		if (estoyParadoEnMiPosicion() && avanzando) {// cantMovimientos != 0) {
-//			cantMovimientos--;
-//			
-//			if (posicion.isEfectoPasandoSobre())
-//				juego.getJuegoState().activarEfectoCasillero();
-//			
-//			if (cantMovimientos == 0) {
-//				// Antes de terminar el turno, debería ejecutar el efecto del casillero en donde terminé
-//				juego.getJuegoState().activarEfectoCasillero();
-//				avanzando = false;
-//				
-//				juego.pasarTurno();
-//				//System.out.println("ACÁ DEBERÍA TERMINAR EL TURNO");
-//			} else {
-//				posicion = posicion.getSiguiente().getCasillero();
-//			}
-//			
-//		// si no estoy parado en mi posicion y me quedan movimientos, tengo que ir hacia mi posicion
-//		} else if (!estoyParadoEnMiPosicion() && avanzando) { // cantMovimientos != 0) {
-//			avanzarHaciaPosicion();
-//		}
+		if (estoyParadoEnMiPosicion() && avanzando) {// cantMovimientos != 0) {
+			cantMovimientos--;
+
+			if (posicion.isEfectoPasandoSobre())
+				juego.getJuegoState().activarEfectoCasillero();
+
+			if (cantMovimientos == 0) {
+				// Antes de terminar el turno, debería ejecutar el efecto del casillero en donde
+				// terminé
+				juego.getJuegoState().activarEfectoCasillero();
+				avanzando = false;
+
+				juego.pasarTurno();
+				// System.out.println("ACÁ DEBERÍA TERMINAR EL TURNO");
+			} else {
+				posicion = posicion.getSiguiente().getCasillero();
+			}
+
+			// si no estoy parado en mi posicion y me quedan movimientos, tengo que ir hacia
+			// mi posicion
+		} else if (!estoyParadoEnMiPosicion() && avanzando) { // cantMovimientos != 0) {
+			avanzarHaciaPosicion();
+		}
 	}
 
 //	public void dibujar(Graphics g) {
@@ -96,38 +91,41 @@ public class Jugador {
 //			break;
 //		}
 //	}
-	//cliente
-//	private void avanzarHaciaPosicion() {
-//		if (posicion.getX() > x)
-//			x++;
-//		else
-//			x--;
-//		
-//		if (posicion.getY() > y)
-//			y++;
-//		else
-//			y--;
-//	}
+//	cliente
+	private void avanzarHaciaPosicion() {
+		if (posicion.getX() > x)
+			x++;
+		else
+			x--;
 
-//	private boolean estoyParadoEnMiPosicion() {
-//		return this.x == posicion.getX() && this.y == posicion.getY();
-//	}
-	
+		if (posicion.getY() > y)
+			y++;
+		else
+			y--;
+	}
+
+	private boolean estoyParadoEnMiPosicion() {
+		return this.x == posicion.getX() && this.y == posicion.getY();
+	}
+
 	/**
-	 * Método que tira el dado del jugador. Debería ser acá donde se le deja elegir al jugador cuál de sus dados tirar. Si es que agregamos más dados.
+	 * Método que tira el dado del jugador. Debería ser acá donde se le deja elegir
+	 * al jugador cuál de sus dados tirar. Si es que agregamos más dados.
+	 * 
 	 * @return int número que salió en el dado
 	 */
 	public void tirarDado() {
-	//	cantMovimientos = DadoSimple.tirar();
+		// cantMovimientos = DadoSimple.tirar();
 	}
-	
+
 	public void startAvanzar() {
-		// Setteo la posición siguiente y lo hago avanzar un pixel así no entra en el primer if del .dibujar();
+		// Setteo la posición siguiente y lo hago avanzar un pixel así no entra en el
+		// primer if del .dibujar();
 		posicion = posicion.getSiguiente().getCasillero();
-		
-		//enviar mensaje al cliente
-//		avanzarHaciaPosicion();
-//		avanzando = true;
+
+		// enviar mensaje al cliente
+		avanzarHaciaPosicion();
+		avanzando = true;
 	}
 
 	public int getMonedas() {
@@ -137,7 +135,7 @@ public class Jugador {
 	public void setMonedas(int monedas) {
 		this.monedas = monedas;
 	}
-	
+
 	public int getEstrellas() {
 		return estrellas;
 	}
@@ -145,7 +143,7 @@ public class Jugador {
 	public void setEstrellas(int estrellas) {
 		this.estrellas = estrellas;
 	}
-	
+
 	public String getUser() {
 		return user;
 	}
@@ -161,7 +159,7 @@ public class Jugador {
 	public void setPosicion(Casillero posicion) {
 		this.posicion = posicion;
 	}
-	
+
 	public int getCantMovimientos() {
 		return cantMovimientos;
 	}
@@ -193,7 +191,7 @@ public class Jugador {
 	public void setAvanzando(boolean avanzando) {
 		this.avanzando = avanzando;
 	}
-	
+
 	public Juego getJuego() {
 		return juego;
 	}
@@ -205,6 +203,24 @@ public class Jugador {
 	public void setPierdeTurno(boolean pierdeTurno) {
 		this.pierdeTurno = pierdeTurno;
 	}
-	
-	
+
+	public void setPosicionBifurcacion(char direccion) {
+		switch (direccion) {
+		case 'n':
+			this.posicion = this.posicion.getNorte().getCasillero();
+			break;
+		case 's':
+			this.posicion = this.posicion.getSur().getCasillero();
+			break;
+
+		case 'e':
+			this.posicion = this.posicion.getEste().getCasillero();
+			break;
+			
+		case 'o':
+			this.posicion = this.posicion.getOeste().getCasillero();
+			break;
+		}
+	}
+
 }

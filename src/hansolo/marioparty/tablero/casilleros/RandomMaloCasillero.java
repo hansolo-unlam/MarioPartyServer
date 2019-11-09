@@ -28,53 +28,53 @@ public class RandomMaloCasillero extends Casillero {
 
 	@Override
 	public void efecto(Jugador jugador) {
-		Random random = new Random();
-		int indice = random.nextInt(8);
-		JFrame frame = new JFrame();
-		switch (indice) {
-		case 0:
-			jugador.setMonedas((int)(jugador.getMonedas()*0.9));
-			JOptionPane.showMessageDialog(frame, "Perdiste el 10% de tus monedas");
-			break;
-			
-		case 1:
-			jugador.setMonedas((int)(jugador.getMonedas()*0.8));
-			JOptionPane.showMessageDialog(frame, "Perdiste el 20% de tus monedas");
-			break;
-			
-		case 2:
-			jugador.setMonedas((int)(jugador.getMonedas()*0.7));
-			JOptionPane.showMessageDialog(frame, "Perdiste el 30% de tus monedas");
-			break;
-		
-		case 3:
-			jugador.setMonedas((int)(jugador.getMonedas()*0.9));
-			JOptionPane.showMessageDialog(frame, "Perdiste el 10% de tus monedas");
-			break;
-			
-		case 4:
-			jugador.setMonedas((int)(jugador.getMonedas()*0.8));
-			JOptionPane.showMessageDialog(frame, "Perdiste el 20% de tus monedas");
-			break;
-			
-		case 5:
-			jugador.setMonedas((int)(jugador.getMonedas()*0.7));
-			JOptionPane.showMessageDialog(frame, "Perdiste el 30% de tus monedas");
-			break;
-		
-		case 6:
-			if(jugador.getEstrellas()>0) {
-				jugador.setEstrellas(jugador.getEstrellas()-1);
-				JOptionPane.showMessageDialog(frame, "Perdiste una estrella, matate");
-			}
-			else
-				JOptionPane.showMessageDialog(frame, "Safaste maestro");
-			break;
-		
-		case 7:	
-			jugador.setPierdeTurno(true);
-			JOptionPane.showMessageDialog(frame, "Perdiste un turno");
-		}
+//		Random random = new Random();
+//		int indice = random.nextInt(8);
+//		JFrame frame = new JFrame();
+//		switch (indice) {
+//		case 0:
+//			jugador.setMonedas((int)(jugador.getMonedas()*0.9));
+//			JOptionPane.showMessageDialog(frame, "Perdiste el 10% de tus monedas");
+//			break;
+//			
+//		case 1:
+//			jugador.setMonedas((int)(jugador.getMonedas()*0.8));
+//			JOptionPane.showMessageDialog(frame, "Perdiste el 20% de tus monedas");
+//			break;
+//			
+//		case 2:
+//			jugador.setMonedas((int)(jugador.getMonedas()*0.7));
+//			JOptionPane.showMessageDialog(frame, "Perdiste el 30% de tus monedas");
+//			break;
+//		
+//		case 3:
+//			jugador.setMonedas((int)(jugador.getMonedas()*0.9));
+//			JOptionPane.showMessageDialog(frame, "Perdiste el 10% de tus monedas");
+//			break;
+//			
+//		case 4:
+//			jugador.setMonedas((int)(jugador.getMonedas()*0.8));
+//			JOptionPane.showMessageDialog(frame, "Perdiste el 20% de tus monedas");
+//			break;
+//			
+//		case 5:
+//			jugador.setMonedas((int)(jugador.getMonedas()*0.7));
+//			JOptionPane.showMessageDialog(frame, "Perdiste el 30% de tus monedas");
+//			break;
+//		
+//		case 6:
+//			if(jugador.getEstrellas()>0) {
+//				jugador.setEstrellas(jugador.getEstrellas()-1);
+//				JOptionPane.showMessageDialog(frame, "Perdiste una estrella, matate");
+//			}
+//			else
+//				JOptionPane.showMessageDialog(frame, "Safaste maestro");
+//			break;
+//		
+//		case 7:	
+//			jugador.setPierdeTurno(true);
+//			JOptionPane.showMessageDialog(frame, "Perdiste un turno");
+//		}
 	}
 
 //	@Override

@@ -94,6 +94,8 @@ public class Paquete {
 			//de cualquier otra manera que lo pense me rompia
 			String juego = data.get("juego").getAsString();
 			int resultado = (int)(Math.random() * 6) + 1;
+			Jugador jugador = Lobby.getSalas().get(juego).getJuego().getTableroState().getTieneTurno();
+			//jugador.setCantMovimientos(resultado);
 			JsonObject jo = new JsonObject();
 			JsonObject jo1 = new JsonObject();
 			jo.addProperty("nombre", "MOVIMIENTOS");
@@ -114,7 +116,9 @@ public class Paquete {
 			jo1.addProperty("juego", juego);
 			jo.add("data", jo1);
 			ThreadAdministrarCliente.distribuirPaquete(jo.toString());
+			
 			System.out.println("Paquete recibido");
+			//Lobby.getSalas().get(juego).getJuego().getTableroState().getTieneTurno().startAvanzar();
 			
 			break;
 			
@@ -128,7 +132,7 @@ public class Paquete {
 		case "MONEDAS":
 			juego = data.get("juego").getAsString();
 			int cant = data.get("cant").getAsInt();
-			Jugador jugador = Lobby.getSalas().get(juego).getJuego().getTableroState().getTieneTurno();
+			jugador = Lobby.getSalas().get(juego).getJuego().getTableroState().getTieneTurno();
 			jugador.setMonedas( Math.max(0, jugador.getMonedas() + cant));
 			System.out.println("Paquete recibido");
 			jo = new JsonObject();
@@ -136,6 +140,23 @@ public class Paquete {
 			jo.addProperty("nombre", "ACTUALIZAR_MONEDAS");
 			jo1.addProperty("juego", juego);
 			jo1.addProperty("cant", jugador.getMonedas());
+			jo.add("data", jo1);
+			ThreadAdministrarCliente.distribuirPaquete(jo.toString());
+			break;
+			
+		case "BIFURCACION":
+			juego = data.get("juego").getAsString();
+			char direccion = data.get("direccion").getAsCharacter();
+			//int casillero = data.get("casillero").getAsInt();
+			//jugador = Lobby.getSalas().get(juego).getJuego().getTableroState().getTieneTurno();
+			//jugador.setPosicionBifurcacion(direccion);
+			//jugador.setAvanzando(true);;
+			System.out.println("Paquete recibido");
+			jo = new JsonObject();
+			jo1 = new JsonObject();
+			jo.addProperty("nombre", "POSICION");
+			jo1.addProperty("juego", juego);
+			jo1.addProperty("direccion", direccion);
 			jo.add("data", jo1);
 			ThreadAdministrarCliente.distribuirPaquete(jo.toString());
 			break;

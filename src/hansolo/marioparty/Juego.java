@@ -8,6 +8,7 @@ import hansolo.marioparty.entidades.Jugador;
 import hansolo.marioparty.states.MinijuegoState;
 import hansolo.marioparty.states.State;
 import hansolo.marioparty.states.TableroState;
+import hansolo.marioparty.tablero.Tablero;
 
 public class Juego implements Runnable {
 
@@ -22,7 +23,11 @@ public class Juego implements Runnable {
 	public TableroState getTableroState() {
 		return tableroState;
 	}
+	private Tablero tablero;
 
+	public Tablero getTablero() {
+		return tablero;
+	}
 	private MinijuegoState minijuegoState;
 
 	// cuando tengamos mas minijuegos se cargarian en el vector
@@ -37,9 +42,11 @@ public class Juego implements Runnable {
 
 	public Juego(ArrayList<String> users, String id) {
 		this.id = id;
+		this.tablero = new Tablero("./recursos/map0.txt", this);
 		for (int i = 0; i<users.size();i++) {
 			jugadores.add(new Jugador(i+1, users.get(i), this));
 		}
+	
 	}
 
 	/*
@@ -131,7 +138,7 @@ public class Juego implements Runnable {
 	private void init() {
 
 		// inicializo los estados
-		tableroState = new TableroState(this);
+		tableroState = new TableroState(this, this.tablero);
 		minijuegoState = new MinijuegoState(this);
 		// minijuegos[0] = new JuegoDados(this);
 

@@ -10,6 +10,10 @@ import server.ThreadAdministrarCliente;
 
 public class TableroState extends State {
 	private Tablero tablero;
+	public Tablero getTablero() {
+		return tablero;
+	}
+
 	private Jugador tieneTurno;
 	public Jugador getTieneTurno() {
 		return tieneTurno;
@@ -20,10 +24,10 @@ public class TableroState extends State {
 
 	private EnumEstadoJuego subEstado;
 
-	public TableroState(Juego juego) {
+	public TableroState(Juego juego, Tablero tablero) {
 		super(juego);
 
-		tablero = new Tablero("./recursos/map0.txt", juego);
+		this.tablero = tablero;
 		this.tieneTurno = juego.getJugadores().get(0);
 		//informarTurno(0);
 		this.subEstado = EnumEstadoJuego.TIEMPO_DE_ACCIONES;

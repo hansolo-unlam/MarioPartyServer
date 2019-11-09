@@ -18,7 +18,7 @@ public class ItemCasillero extends Casillero {
 
 	@Override
 	public void efecto(Jugador jugador) {
-		System.out.println(jugador.getUser() + " calló en un casillero de item");
+//		System.out.println(jugador.getUser() + " calló en un casillero de item");
 	}
 
 //	@Override

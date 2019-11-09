@@ -41,23 +41,23 @@ public class EstrellaCasillero extends Casillero {
 
 	@Override
 	public void efecto(Jugador jugador) {
-		System.out.println(jugador.getUser() + " pasó o calló en un casillero de estrella");
-
-		// si la estrella está acá
-		if (tieneEstrella) {
-			if (jugador.getMonedas() >= PRECIO_ESTRELLA) {
-				if (true) { // Debería fijarse si el jugador decide comprarla
-					venderEstrella(jugador);
-				}
-			} else {
-				System.out.println(jugador.getUser() + " tiene " + jugador.getMonedas()
-						+ " MONEDAS, pero la estrella tiene un precio de " + PRECIO_ESTRELLA + " MONEDAS.");
-			}
-			// si la estrella no está acá, dejar pasar al jugador sin que cuente este
-			// casillero como un movimiento
-		} else {
-			jugador.setCantMovimientos(jugador.getCantMovimientos() + 1);
-		}
+//		System.out.println(jugador.getUser() + " pasó o calló en un casillero de estrella");
+//
+//		// si la estrella está acá
+//		if (tieneEstrella) {
+//			if (jugador.getMonedas() >= PRECIO_ESTRELLA) {
+//				if (true) { // Debería fijarse si el jugador decide comprarla
+//					venderEstrella(jugador);
+//				}
+//			} else {
+//				System.out.println(jugador.getUser() + " tiene " + jugador.getMonedas()
+//						+ " MONEDAS, pero la estrella tiene un precio de " + PRECIO_ESTRELLA + " MONEDAS.");
+//			}
+//			// si la estrella no está acá, dejar pasar al jugador sin que cuente este
+//			// casillero como un movimiento
+//		} else {
+//			jugador.setCantMovimientos(jugador.getCantMovimientos() + 1);
+//		}
 	}
 
 	private void venderEstrella(Jugador jugador) {
