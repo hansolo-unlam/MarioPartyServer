@@ -9,6 +9,7 @@ import com.google.gson.JsonObject;
 
 import admin.Lobby;
 import admin.Sala;
+import hansolo.marioparty.entidades.Jugador;
 import hansolo.marioparty.states.TableroState;
 import server.ThreadAdministrarCliente;
 
@@ -118,11 +119,25 @@ public class Paquete {
 			break;
 			
 		case "PASAR_TURNO":
-			//de cualquier otra manera que lo pense me rompia
 			juego = data.get("juego").getAsString();
 			Lobby.getSalas().get(juego).getJuego().getTableroState().pasarTurno();
 			System.out.println("Paquete recibido");
 			
+			break;
+			
+		case "MONEDAS":
+			juego = data.get("juego").getAsString();
+			int cant = data.get("cant").getAsInt();
+			Jugador jugador = Lobby.getSalas().get(juego).getJuego().getTableroState().getTieneTurno();
+			jugador.setMonedas( Math.max(0, jugador.getMonedas() + cant));
+			System.out.println("Paquete recibido");
+			jo = new JsonObject();
+			jo1 = new JsonObject();
+			jo.addProperty("nombre", "ACTUALIZAR_MONEDAS");
+			jo1.addProperty("juego", juego);
+			jo1.addProperty("cant", jugador.getMonedas());
+			jo.add("data", jo1);
+			ThreadAdministrarCliente.distribuirPaquete(jo.toString());
 			break;
 		default:
 

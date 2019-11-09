@@ -11,6 +11,10 @@ import server.ThreadAdministrarCliente;
 public class TableroState extends State {
 	private Tablero tablero;
 	private Jugador tieneTurno;
+	public Jugador getTieneTurno() {
+		return tieneTurno;
+	}
+
 	private int ronda = 1;
 	String userJugadores;
 
