@@ -147,10 +147,6 @@ public class Paquete {
 		case "BIFURCACION":
 			juego = data.get("juego").getAsString();
 			char direccion = data.get("direccion").getAsCharacter();
-			//int casillero = data.get("casillero").getAsInt();
-			//jugador = Lobby.getSalas().get(juego).getJuego().getTableroState().getTieneTurno();
-			//jugador.setPosicionBifurcacion(direccion);
-			//jugador.setAvanzando(true);;
 			System.out.println("Paquete recibido");
 			jo = new JsonObject();
 			jo1 = new JsonObject();
@@ -160,6 +156,20 @@ public class Paquete {
 			jo.add("data", jo1);
 			ThreadAdministrarCliente.distribuirPaquete(jo.toString());
 			break;
+			
+		case "HURTO":
+			juego = data.get("juego").getAsString();
+			String robado = data.get("aRobar").getAsString();
+			System.out.println("Paquete recibido");
+			jo = new JsonObject();
+			jo1 = new JsonObject();
+			jo.addProperty("nombre", "HURTO");
+			jo1.addProperty("juego", juego);
+			jo1.addProperty("robado", robado);
+			jo.add("data", jo1);
+			ThreadAdministrarCliente.distribuirPaquete(jo.toString());
+			break;
+			
 		default:
 
 		}
