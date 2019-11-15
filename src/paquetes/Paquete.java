@@ -3,6 +3,7 @@ package paquetes;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Random;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -170,6 +171,19 @@ public class Paquete {
 			ThreadAdministrarCliente.distribuirPaquete(jo.toString());
 			break;
 			
+		case "RANDOM":
+			juego = data.get("juego").getAsString();
+			Random random = new Random();
+			int indice = random.nextInt(8);
+			System.out.println("Paquete recibido");
+			jo = new JsonObject();
+			jo1 = new JsonObject();
+			jo.addProperty("nombre", "RANDOM");
+			jo1.addProperty("juego", juego);
+			jo1.addProperty("indice", indice);
+			jo.add("data", jo1);
+			ThreadAdministrarCliente.distribuirPaquete(jo.toString());
+			break;
 		default:
 
 		}
