@@ -176,11 +176,27 @@ public class Paquete {
 			Random random = new Random();
 			int indice = random.nextInt(8);
 			System.out.println("Paquete recibido");
+			if(indice==7) {
+				Lobby.getSalas().get(juego).getJuego().getTableroState().getTieneTurno().setPierdeTurno(true);
+			}
 			jo = new JsonObject();
 			jo1 = new JsonObject();
 			jo.addProperty("nombre", "RANDOM");
 			jo1.addProperty("juego", juego);
 			jo1.addProperty("indice", indice);
+			jo.add("data", jo1);
+			ThreadAdministrarCliente.distribuirPaquete(jo.toString());
+			break;
+			
+		case "TP":
+			juego = data.get("juego").getAsString();
+			String moverseHacia = data.get("moverseHacia").getAsString();
+			System.out.println("Paquete recibido");
+			jo = new JsonObject();
+			jo1 = new JsonObject();
+			jo.addProperty("nombre", "TP");
+			jo1.addProperty("juego", juego);
+			jo1.addProperty("moverseHacia", moverseHacia);
 			jo.add("data", jo1);
 			ThreadAdministrarCliente.distribuirPaquete(jo.toString());
 			break;

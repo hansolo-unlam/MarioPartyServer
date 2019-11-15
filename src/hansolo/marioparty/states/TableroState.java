@@ -76,6 +76,7 @@ public class TableroState extends State {
 		}
 
 		if (tieneTurno.isPierdeTurno()) {
+			tieneTurno.setPierdeTurno(false);
 			this.pasarTurno();
 		}
 
