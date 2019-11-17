@@ -200,7 +200,21 @@ public class Paquete {
 			jo.add("data", jo1);
 			ThreadAdministrarCliente.distribuirPaquete(jo.toString());
 			break;
-		default:
+			
+		case "ESTRELLA":
+			juego = data.get("juego").getAsString();
+			int id = data.get("casillero").getAsInt();
+			System.out.println("Paquete recibido");
+			jugador = Lobby.getSalas().get(juego).getJuego().getTableroState().getTieneTurno();
+			jugador.setMonedas(jugador.getMonedas() - 30);
+			jo = new JsonObject();
+			jo1 = new JsonObject();
+			jo.addProperty("nombre", "COMPRA_ESTRELLA");
+			jo1.addProperty("juego", juego);
+			jo.add("data", jo1);
+			ThreadAdministrarCliente.distribuirPaquete(jo.toString());
+			Lobby.getSalas().get(juego).getJuego().getTablero().ubicarEstrella(id);
+			break;
 
 		}
 	}
