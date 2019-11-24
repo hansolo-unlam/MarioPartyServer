@@ -176,9 +176,10 @@ public class Paquete {
 			Random random = new Random();
 			int indice = random.nextInt(8);
 			System.out.println("Paquete recibido");
-			if(indice==7) {
-				Lobby.getSalas().get(juego).getJuego().getTableroState().getTieneTurno().setPierdeTurno(true);
-			}
+			Lobby.getSalas().get(juego).getJuego().handlerRandom(indice);
+//			if(indice==7) {
+//				Lobby.getSalas().get(juego).getJuego().getTableroState().getTieneTurno().setPierdeTurno(true);
+//			}
 			jo = new JsonObject();
 			jo1 = new JsonObject();
 			jo.addProperty("nombre", "RANDOM");
