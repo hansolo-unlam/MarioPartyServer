@@ -192,49 +192,49 @@ public class Juego implements Runnable {
 		this.tableroState = tableroState;
 	}
 
-	public void handlerRandom(int indice) {
-		switch (indice) {
-		case 0:
-			tableroState.getTieneTurno().setMonedas((int) (tableroState.getTieneTurno().getMonedas() * 0.9));
-			break;
-
-		case 1:
-			tableroState.getTieneTurno().setMonedas((int) (tableroState.getTieneTurno().getMonedas() * 0.8));
-
-			break;
-
-		case 2:
-			tableroState.getTieneTurno().setMonedas((int) (tableroState.getTieneTurno().getMonedas() * 0.7));
-
-			break;
-
-		case 3:
-			tableroState.getTieneTurno().setMonedas((int) (tableroState.getTieneTurno().getMonedas() * 0.9));
-
-			break;
-
-		case 4:
-			tableroState.getTieneTurno().setMonedas((int) (tableroState.getTieneTurno().getMonedas() * 0.8));
-	
-			break;
-
-		case 5:
-			tableroState.getTieneTurno().setMonedas((int) (tableroState.getTieneTurno().getMonedas() * 0.7));
-
-			break;
-
-		case 6:
-			if (tableroState.getTieneTurno().getEstrellas() > 0) {
-				tableroState.getTieneTurno().setEstrellas(tableroState.getTieneTurno().getEstrellas() - 1);
-						} else
-//				JOptionPane.showMessageDialog(frame, "Safaste maestro");
-				break;
-
-		case 7:
-			tableroState.getTieneTurno().setPierdeTurno(true);
-
-			
-		}
-		
-	}
+//	public void handlerRandom(int indice) {
+//		switch (indice) {
+//		case 0:
+//			tableroState.getTieneTurno().setMonedas((int) (tableroState.getTieneTurno().getMonedas() * 0.9));
+//			break;
+//
+//		case 1:
+//			tableroState.getTieneTurno().setMonedas((int) (tableroState.getTieneTurno().getMonedas() * 0.8));
+//
+//			break;
+//
+//		case 2:
+//			tableroState.getTieneTurno().setMonedas((int) (tableroState.getTieneTurno().getMonedas() * 0.7));
+//
+//			break;
+//
+//		case 3:
+//			tableroState.getTieneTurno().setMonedas((int) (tableroState.getTieneTurno().getMonedas() * 0.9));
+//
+//			break;
+//
+//		case 4:
+//			tableroState.getTieneTurno().setMonedas((int) (tableroState.getTieneTurno().getMonedas() * 0.8));
+//	
+//			break;
+//
+//		case 5:
+//			tableroState.getTieneTurno().setMonedas((int) (tableroState.getTieneTurno().getMonedas() * 0.7));
+//
+//			break;
+//
+//		case 6:
+//			if (tableroState.getTieneTurno().getEstrellas() > 0) {
+//				tableroState.getTieneTurno().setEstrellas(tableroState.getTieneTurno().getEstrellas() - 1);
+//						} else
+////				JOptionPane.showMessageDialog(frame, "Safaste maestro");
+//				break;
+//
+//		case 7:
+//			tableroState.getTieneTurno().setPierdeTurno(true);
+//
+//			
+//		}
+//		
+//	}
 }
