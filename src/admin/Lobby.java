@@ -18,13 +18,12 @@ public class Lobby extends Thread {
 //	private Socket socketCliente;
 	private HashMap<Integer, Socket> clientes;
 	private static ArrayList<String> userNames = new ArrayList<String>();
-	
 
 	public static void crearSala(String nombre, Socket cliente, String userName) {
 		if (!salas.containsKey(nombre)) {
-			
+
 			nombres.add(nombre);
-			//genero el mensaje y lo envio a los clientes
+			// genero el mensaje y lo envio a los clientes
 			JsonObject jo = new JsonObject();
 			JsonObject jo1 = new JsonObject();
 			jo.addProperty("nombre", "SALA_CREADA");
@@ -33,7 +32,7 @@ public class Lobby extends Thread {
 			ThreadAdministrarCliente.distribuirPaquete(jo.toString());
 			salas.put(nombre, new Sala(cliente, nombre, userName));
 		}
-		
+
 	}
 
 	public static HashMap<String, Sala> getSalas() {
@@ -50,7 +49,7 @@ public class Lobby extends Thread {
 	private static void eliminarSala(String nombre) {
 		salas.remove(nombre);
 		nombres.remove(nombre);
-		//genero el mensaje y lo envio a los clientes
+		// genero el mensaje y lo envio a los clientes
 		JsonObject jo = new JsonObject();
 		JsonObject jo1 = new JsonObject();
 		jo.addProperty("nombre", "SALA_ELIMINADA");
@@ -65,7 +64,7 @@ public class Lobby extends Thread {
 			salas.get(nombre).unirseASala(user, userName);
 	}
 
-	//cuando se conecta un nuevo cliente le envio las salas existentes
+	// cuando se conecta un nuevo cliente le envio las salas existentes
 	public static void salasPrevias(Socket socketCliente) {
 		JsonObject jo = new JsonObject();
 		JsonObject jo1 = new JsonObject();
@@ -73,7 +72,7 @@ public class Lobby extends Thread {
 		int i = 0;
 		jo1.addProperty("cant", nombres.size());
 		for (String sala : nombres) {
-			jo1.addProperty("sala"+i, sala);
+			jo1.addProperty("sala" + i, sala);
 			i++;
 		}
 		jo.add("data", jo1);
@@ -84,7 +83,7 @@ public class Lobby extends Thread {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	public static void nuevoUser(String usuario) {
@@ -95,7 +94,7 @@ public class Lobby extends Thread {
 		int i = 0;
 		jo1.addProperty("cant", userNames.size());
 		for (String user : userNames) {
-			jo1.addProperty("user"+i, user);
+			jo1.addProperty("user" + i, user);
 			i++;
 		}
 		jo.add("data", jo1);
@@ -110,7 +109,7 @@ public class Lobby extends Thread {
 		int i = 0;
 		jo1.addProperty("cant", userNames.size());
 		for (String user : userNames) {
-			jo1.addProperty("user"+i, user);
+			jo1.addProperty("user" + i, user);
 			i++;
 		}
 		jo.add("data", jo1);
@@ -121,6 +120,9 @@ public class Lobby extends Thread {
 		salas.get(sala).iniciarPartida();
 	}
 
+	public static void sacarJugadorDePartida(String nombre, Socket user, String userName) {
+		salas.get(nombre).getJuego().eliminarJugador(userName);
 
+	}
 
 }

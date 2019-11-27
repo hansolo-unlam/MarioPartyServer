@@ -6,11 +6,14 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import com.google.gson.JsonObject;
+
 import hansolo.marioparty.entidades.Jugador;
 import hansolo.marioparty.states.MinijuegoState;
 import hansolo.marioparty.states.State;
 import hansolo.marioparty.states.TableroState;
 import hansolo.marioparty.tablero.Tablero;
+import server.ThreadAdministrarCliente;
 
 public class Juego implements Runnable {
 
@@ -190,6 +193,23 @@ public class Juego implements Runnable {
 
 	public void setJuegoState(TableroState tableroState) {
 		this.tableroState = tableroState;
+	}
+
+	public void eliminarJugador(String userName) {
+		if(tableroState.getTieneTurno().getUser().equals(userName)) {
+			tableroState.pasarTurno();
+		}
+		for(int i = 0; i<jugadores.size();i++) {
+			if(jugadores.get(i).getUser().equals(userName))
+				jugadores.remove(i);
+		}
+		JsonObject jo = new JsonObject();
+		JsonObject jo1 = new JsonObject();
+		jo.addProperty("nombre", "JUGADOR_DESCONECTADO");
+		jo1.addProperty("juego", id);
+		jo1.addProperty("user", userName);
+		jo.add("data", jo1);
+		ThreadAdministrarCliente.distribuirPaquete(jo.toString());
 	}
 
 //	public void handlerRandom(int indice) {

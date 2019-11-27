@@ -76,6 +76,13 @@ public class Paquete {
 			String sala = data.get("sala").getAsString();
 			Lobby.iniciarPartida(sala);
 			break;
+			
+		case "SALIR_PARTIDA":
+			String salaSolicitada1 = data.get("nombreSala").getAsString();
+			userName = data.get("user").getAsString();
+			System.out.println("Paquete recibido");
+			Lobby.sacarJugadorDePartida(salaSolicitada1, socketCliente, userName);
+			break;
 
 		case "NUEVA_SALA":
 			String nombreSala = data.get("nombreSala").getAsString();
@@ -85,7 +92,7 @@ public class Paquete {
 			break;
 
 		case "SALIR_SALA":
-			String salaSolicitada1 = data.get("nombreSala").getAsString();
+			salaSolicitada1 = data.get("nombreSala").getAsString();
 			userName = data.get("user").getAsString();
 			System.out.println("Paquete recibido");
 			Lobby.sacarJugadorDeSala(salaSolicitada1, socketCliente, userName);
