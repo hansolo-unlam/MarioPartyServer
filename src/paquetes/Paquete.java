@@ -12,6 +12,8 @@ import admin.Lobby;
 import admin.Sala;
 import hansolo.marioparty.entidades.Jugador;
 import hansolo.marioparty.states.TableroState;
+import server.BaseDeDatos;
+import server.Server;
 import server.ThreadAdministrarCliente;
 
 public class Paquete {
@@ -55,12 +57,30 @@ public class Paquete {
 				e.printStackTrace();
 			}
 			break;
-			
+
 		case "LOGIN":
+			String usuarioLog = data.get("usuario").getAsString();
+			String contraseña = data.get("contraseña").getAsString();
+			if(BaseDeDatos.datosValidos(usuarioLog, contraseña))
+				Lobby.loginOK(socketCliente);
+			else
+				Lobby.loginFAIL(socketCliente);
+			break;
+		
+		case "LOGIN_2":
 			String usuarioIn = data.get("usuario").getAsString();
 			Lobby.nuevoUser(usuarioIn);
-			//String contraseña = data.get("contraseña").getAsString();
-			// verificarDatosUsuario(usuario, contraseña, socket);
+			break;
+			
+		case "SALIR_LOGIN":
+			try {
+				socketCliente.close();
+				Server.eliminarCliente(socketCliente);
+				System.out.println("Un cliente salio estando en logueo");
+			} catch (IOException e) {
+			
+				e.printStackTrace();
+			}
 			break;
 			
 			//Cree metodos estaticos en el Lobby porque es quien tiene todas las salas
@@ -76,13 +96,6 @@ public class Paquete {
 			String sala = data.get("sala").getAsString();
 			Lobby.iniciarPartida(sala);
 			break;
-			
-		case "SALIR_PARTIDA":
-			String salaSolicitada1 = data.get("nombreSala").getAsString();
-			userName = data.get("user").getAsString();
-			System.out.println("Paquete recibido");
-			Lobby.sacarJugadorDePartida(salaSolicitada1, socketCliente, userName);
-			break;
 
 		case "NUEVA_SALA":
 			String nombreSala = data.get("nombreSala").getAsString();
@@ -92,7 +105,7 @@ public class Paquete {
 			break;
 
 		case "SALIR_SALA":
-			salaSolicitada1 = data.get("nombreSala").getAsString();
+			String salaSolicitada1 = data.get("nombreSala").getAsString();
 			userName = data.get("user").getAsString();
 			System.out.println("Paquete recibido");
 			Lobby.sacarJugadorDeSala(salaSolicitada1, socketCliente, userName);

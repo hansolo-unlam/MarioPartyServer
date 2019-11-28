@@ -24,7 +24,7 @@ public class ThreadAdministrarCliente extends Thread {
 	 * para luego brindarle una respuesta al mismo
 	 */
 	private Socket socketCliente;
-	private HashMap<Integer, Socket> clientes;
+	private static HashMap<Integer, Socket> clientes;
 	// Buffer del cual va a leer el cliente
 	private DataInputStream in;
 	private PaqueteManager pkManager;
@@ -33,23 +33,33 @@ public class ThreadAdministrarCliente extends Thread {
 	public ThreadAdministrarCliente(Socket socketCliente, HashMap<Integer, Socket> clientes) {
 		this.socketCliente = socketCliente;
 		this.clientes = clientes;
-		this.clientesArray = new ArrayList<Socket>(this.clientes.values());
+		//this.clientesArray = new ArrayList<Socket>(this.clientes.values());
 		this.pkManager = new PaqueteManager();
 		try {
 			this.in = new DataInputStream(this.socketCliente.getInputStream());
 		} catch (IOException e) {
 			System.out.println("No se pudo establecer la conexion con el cliente");
+			Server.mostrarSockets();
+			try {
+				socketCliente.close();
+				Server.eliminarCliente(socketCliente);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				System.out.println("Error al cerrar el socket");
+			}
+			
 		}
 	}
 	
 	public ThreadAdministrarCliente(Socket socketCliente, ArrayList<Socket> clientes) {
 		this.socketCliente = socketCliente;
-		this.clientesArray = clientes;
+		//this.clientesArray = clientes;
 		this.pkManager = new PaqueteManager();
 		try {
 			this.in = new DataInputStream(this.socketCliente.getInputStream());
 		} catch (IOException e) {
 			System.out.println("No se pudo establecer la conexion con el cliente");
+			Server.mostrarSockets();
 		}
 	}
 
@@ -85,7 +95,16 @@ public class ThreadAdministrarCliente extends Thread {
 				Paquete inputPaquete = gson.fromJson(mensajeRecibido, Paquete.class);*/
 
 			} catch (IOException e) {
+				try {
+					socketCliente.close();
+					Server.eliminarCliente(socketCliente);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					System.out.println("Error al cerrar el socket");
+					Server.mostrarSockets();
+				}
 				System.out.println("Error con el cliente");
+				Server.mostrarSockets();
 			}
 		}
 
@@ -95,6 +114,7 @@ public class ThreadAdministrarCliente extends Thread {
 
 	public synchronized static void distribuirPaquete(String mensaje) {
 
+		clientesArray = new ArrayList<Socket>(clientes.values());
 		for (Socket clienteDestino : clientesArray) {
 			try {
 				DataOutputStream out = new DataOutputStream(clienteDestino.getOutputStream());
@@ -109,6 +129,7 @@ public class ThreadAdministrarCliente extends Thread {
 			} catch (IOException e) {
 
 				System.out.println("No se pudo establecer la conexion con el cliente");
+				Server.mostrarSockets();
 			}
 		}
 	}

@@ -26,10 +26,13 @@ public class Server {
 	private static HashMap<Integer, Socket> clientes;
 	private ServerSocket serverSocket;
 	private int puerto;
+	
+	private static BaseDeDatos basededatos;
 
 	public Server() {
 		leerProperties();
-
+		basededatos = new BaseDeDatos();
+		
 		try {
 
 			// Para almacenar los clientes que se vayan conectando al servidor.
@@ -75,8 +78,24 @@ public class Server {
 		}
 
 	}
+	
+	public static void eliminarCliente(Socket cliente) {
+		clientes.values().remove(cliente);
+		
+	}
+	
+	public static void mostrarSockets() {
+		
+		clientes.forEach((k,v) -> System.out.println("Key: " + k + ": Value: " + v));
+
+	}
+	
 
 	public static void main(String[] args) {
+		
+		//new BaseDeDatos();
+		//BaseDeDatos.datosValidos("Alexis", "456");
+		
 		new Server();
 		
 	}
