@@ -86,9 +86,11 @@ public class Paquete {
 			//Cree metodos estaticos en el Lobby porque es quien tiene todas las salas
 		case "INGRESAR_SALA":
 			String salaSolicitada = data.get("salaSolicitada").getAsString();
+			String contraseñaSala = data.get("pass").getAsString();
 			String userName = data.get("user").getAsString();
+			
 			System.out.println("Paquete recibido");
-			Lobby.agregarASala(salaSolicitada, socketCliente, userName);
+			Lobby.agregarASala(salaSolicitada, contraseñaSala, socketCliente, userName);
 			break;
 
 		case "INICIAR_PARTIDA":
@@ -99,9 +101,11 @@ public class Paquete {
 
 		case "NUEVA_SALA":
 			String nombreSala = data.get("nombreSala").getAsString();
+			String contraseñaNuevaSala = data.get("pass").getAsString(); //NUEVO
 			userName = data.get("user").getAsString();
+			
 			System.out.println("Paquete recibido");
-			Lobby.crearSala(nombreSala, socketCliente, userName);
+			Lobby.crearSala(nombreSala, contraseñaNuevaSala, socketCliente, userName); //MODIF
 			break;
 
 		case "SALIR_SALA":

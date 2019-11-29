@@ -20,7 +20,7 @@ public class Lobby extends Thread {
 	private static ArrayList<String> userNames = new ArrayList<String>();
 	
 
-	public static void crearSala(String nombre, Socket cliente, String userName) {
+	public static void crearSala(String nombre, String contraseña, Socket cliente, String userName) {
 		if (!salas.containsKey(nombre)) {
 			
 			nombres.add(nombre);
@@ -31,7 +31,7 @@ public class Lobby extends Thread {
 			jo1.addProperty("salaCreada", nombre);
 			jo.add("data", jo1);
 			ThreadAdministrarCliente.distribuirPaquete(jo.toString());
-			salas.put(nombre, new Sala(cliente, nombre, userName));
+			salas.put(nombre, new Sala(cliente, contraseña, nombre, userName));
 		}
 		
 	}
@@ -60,9 +60,51 @@ public class Lobby extends Thread {
 
 	}
 
-	public static void agregarASala(String nombre, Socket user, String userName) {
-		if (!salas.get(nombre).isLlena())
-			salas.get(nombre).unirseASala(user, userName);
+	public static void agregarASala(String nombre, String contraseña, Socket user, String userName) {
+		
+		JsonObject jo = new JsonObject();
+		JsonObject jo1 = new JsonObject();
+		
+		DataOutputStream out;
+		
+		
+		if(salas.get(nombre).getContraseña().equals(contraseña))
+			if (!salas.get(nombre).isLlena()) {
+				jo.addProperty("nombre", "INGRESAR_SALA_OK");
+				jo1.addProperty("nombreSala", nombre);
+				jo.add("data", jo1);
+				try {
+					out = new DataOutputStream(user.getOutputStream());
+					out.writeUTF(jo.toString());
+					out.flush();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				salas.get(nombre).unirseASala(user, userName);
+				return;
+			}
+			else {
+				jo.addProperty("nombre", "SALA_LLENA");
+			}
+		else {
+			jo.addProperty("nombre", "CONTRASEÑA_INCORRECTA");
+		}
+			
+		
+		jo1.addProperty("estado", "fail");
+		jo.add("data", jo1);
+		try {
+			out = new DataOutputStream(user.getOutputStream());
+			out.writeUTF(jo.toString());
+			out.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 
 	//cuando se conecta un nuevo cliente le envio las salas existentes

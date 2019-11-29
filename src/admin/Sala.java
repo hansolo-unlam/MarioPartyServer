@@ -15,13 +15,15 @@ public class Sala {
 	private ArrayList<Socket> usuarios = new ArrayList<Socket>();
 	private ArrayList<String> userNames = new ArrayList<String>();
 	private String nombre;
+	private String contraseña;
 	private Socket socketCliente;
 	private Juego juego;
 	ThreadAdministrarCliente threadPartida;
 //	private Juego juego;
 
-	public Sala(Socket cliente, String nombre, String userName) {
+	public Sala(Socket cliente, String contraseña, String nombre, String userName) {
 		this.nombre = nombre;
+		this.contraseña = contraseña; //NUEVO
 		unirseASala(cliente, userName);
 		// redibujo la ventana del usuario
 	}
@@ -101,6 +103,10 @@ public class Sala {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+	
+	public String getContraseña() {
+		return contraseña;
 	}
 
 }
