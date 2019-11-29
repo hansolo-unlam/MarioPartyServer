@@ -240,7 +240,19 @@ public class Paquete {
 			ThreadAdministrarCliente.distribuirPaquete(jo.toString());
 			Lobby.getSalas().get(juego).getJuego().getTablero().ubicarEstrella(id);
 			break;
-
+			
+		case "CAMBIAR_COLOR":
+			String SalaConDistintoColor = data.get("nombreSala").getAsString();
+			String nombreUser = data.get("user").getAsString();
+			String colorMapa = data.get("color").getAsString();
+			jo = new JsonObject();
+			jo1 = new JsonObject();
+			jo.addProperty("nombre", "CAMBIAR_MAPA");
+			jo1.addProperty("color", colorMapa);
+			jo.add("data", jo1);
+			ThreadAdministrarCliente.distribuirPaquete(jo.toString());
+			break;
+	
 		}
 	}
 }
