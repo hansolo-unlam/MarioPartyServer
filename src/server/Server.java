@@ -94,7 +94,7 @@ public class Server {
 	public static void main(String[] args) {
 		
 		//new BaseDeDatos();
-		//BaseDeDatos.datosValidos("Alexis", "456");
+		//BaseDeDatos.datosValidos("User2", "123");
 		
 		new Server();
 		

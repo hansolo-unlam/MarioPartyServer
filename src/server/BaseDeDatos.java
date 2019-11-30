@@ -49,10 +49,14 @@ public class BaseDeDatos {
 			
 			Usuario aux = new Usuario(user, pass);
 			
-			if(lista.size() > 0) 
+			for (Usuario usuario : lista) {
+				System.out.println(lista.size());
+			}
+			if(lista.size() > 0) {
+				System.out.println(lista.get(0).getPass() + " - " + aux.getPassHash());
 				if(Integer.valueOf(lista.get(0).getPass()) == aux.getPassHash()) 
 					return true;
-			
+			}
 			return false;
 					
 		} catch (HibernateException e) {
